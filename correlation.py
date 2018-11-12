@@ -1,3 +1,6 @@
+import numpy as np
+from numpy.polynomial.polynomial import polyfit
+import matplotlib.pyplot as plt
 
 import math 
 
