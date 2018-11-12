@@ -47,18 +47,18 @@ def calcMean(x):
 
 
 plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x1,y1), b0(x1,y1), b1(x1, y1)))
-plt.plot(x1, y1, '.')
+plt.scatter(x1, y1)
 plt.plot(correlation(x1, y1),'r-')
 plt.show()
 
 
 plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x2,y2), b0(x2,y2), b1(x2, y2)))
-plt.plot(x2, y2, '.')
+plt.scatter(x2, y2)
 plt.plot(correlation(x2, y2),'r-')
 plt.show()
 
 plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x3, y3), b0(x3, y3), b1(x3, y3)))
-plt.plot(x3, y3, '.')
+plt.scatter(x3, y3)
 plt.plot(correlation(x3, y3),'r-')
 plt.show()
 
