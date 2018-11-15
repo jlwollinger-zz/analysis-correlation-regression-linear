@@ -10,15 +10,12 @@ mat = scipy.loadmat('data/data.mat')
 #Matriz 3x3. colunas:
 #0 = tamanho, 1 = número de quartos, 2 = preço
 data = mat['data']
-print(mat['data'])
 
 #Tamanho e quartos
 x= data[:, 0:3:2] #slice das colunas
-print(x)
 
 #preço
 y = data[:,1]
-print(y)
 
 
 def calc_correlacao_e_regressao(x, y):
@@ -26,12 +23,8 @@ def calc_correlacao_e_regressao(x, y):
     regre = regression(x, y)
     return corre, regre
 
-
 def regression(x, y):
   return b0(x, y) + b1(x, y)
-
-def regmultipla(x , y):
-    print(x)
 
 def scatter3d(x, y, z):
     fig = plt.figure()
@@ -65,11 +58,26 @@ def correlation(xList, yList):
   return totalUpCalc / math.sqrt(totalDownCalc1 * totalDownCalc2)
 
 
+
+#TODO Implementar regressão múltipla
+def regresseao_multipla():
+    print('A implementar')
+
+#𝑦̂ = X*𝛽
+
+    #𝛽= (Xt X)-1 Xty
+
+#Plota gráfico 3d com coluna tamanho, preço e quartos.
 scatter3d(x[:,0], y, x[:,1])
+
 
 
 #Correlação tamanho casa e preço
 correlacao, regressao = calc_correlacao_e_regressao(x[:,0], y)
-
+print(correlacao)
+print(regressao)
 #Correlação número de quartos e preço
 correlacao, regressao = calc_correlacao_e_regressao(x[:,1], y)
+print(correlacao)
+print(regressao)
+

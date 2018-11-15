@@ -26,7 +26,7 @@ def b0(x , y):
 
 b0 = b0(x1, y1)
 b1 = b1(x1, y1)
-plt.title('Correlation, b0 {b0}, b1 {b1}')
+plt.title('Regression, b0 {b0}, b1 {b1}')
 plt.plot(x1, y1, '.')
 plt.show()
 #
