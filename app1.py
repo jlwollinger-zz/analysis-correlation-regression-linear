@@ -45,28 +45,25 @@ def calcMean(x):
   return mean
 
 def regression(x, y):
-  return b0(x, y), b1(x, y)
+  regressao = []
+  for value in x:
+    regressao.append(b0(x, y) + b1(x, y) * value)
+  return regressao
 
 
-
-b0, b1 = regression(x1, y1)
-
-plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x1,y1), b0, b1))
+plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x1, y1), b0(x1, y1), b1(x1, y1)))
 plt.scatter(x1, y1)
-#TODO: plotar a linha de correlação. como fazer? 
-#plt.plot(x1, correlation(x1,y1) * x1, '-')
+plt.plot(x1, regression(x1, y1), '-')
 plt.show()
 
-b0, b1 = regression(x2, y2)
-plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x2,y2), b0, b1))
+plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x2, y2), b0(x2, y2), b1(x2, y2)))
 plt.scatter(x2, y2)
-plt.plot(b0 + b1,'r-')
+plt.plot(x2, regression(x2, y2), '-')
 plt.show()
 
-b0, b1 = regression(x3, y3)
-plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x3, y3), b0, b1))
+plt.title('Correlation {:.5f}, b0 {:.5f}, b1 {:.5f}'.format(correlation(x3, y3), b0(x3, y3), b1(x3, y3)))
 plt.scatter(x3, y3)
-plt.plot(b0 + b1,'r-')
+plt.plot(x3, regression(x3, y3), '-')
 plt.show()
 
 
