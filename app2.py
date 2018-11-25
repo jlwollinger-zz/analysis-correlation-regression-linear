@@ -1,9 +1,11 @@
+#José Wollinger e Michel Tank
 import numpy as np
 import matplotlib.pyplot as plt
 import math 
 #pip install scipy
 import scipy.io as scipy
 from mpl_toolkits.mplot3d import Axes3D
+from numpy.linalg import inv
 
 mat = scipy.loadmat('data/data.mat')
 #Matriz 3x3. colunas:
@@ -11,9 +13,11 @@ mat = scipy.loadmat('data/data.mat')
 data = mat['data']
 
 #Tamanho e quartos
-x = data[:, 0:3:2] #slice das colunas
+x = data[:, 0:2] #slice das colunas
+x = np.insert(x, 0, values=1, axis=1) #Adiciona 1's na primeira coluna
 
-y = data[:,1]
+#Preços
+y = data[:,2]
 
 def correlation(xList, yList):
     meanX = np.mean(xList)
@@ -29,44 +33,34 @@ def correlation(xList, yList):
   
     return totalUpCalc / math.sqrt(totalDownCalc1 * totalDownCalc2)
 
-
 def adicionarColuna(x, posicao, valor):
-    return np.insert(x, posicao, values=valor, axis=1) #Adiciona uma coluna com 1s no índice 0
+    return  #Adiciona uma coluna com 1s no índice 0
 
-#TODO Implementar regressão múltipla
 def regresseao_multipla(x, y):
-    # b = (((datx' * datx) ^ -1) * datx') * daty;
-
-    beta = (((x.transpose().dot(x)).dot(-1)).dot(x.transpose())).dot(y)
-
-    return x.dot(beta)
-    #x = ((xTransposed * x) * -1) * (xTransposed * y)
-
-    #𝑦̂ = X*𝛽
-
-    #𝛽= (Xt X)-1 Xty
-
-#scatter3d(x[:,0], y, x[:,1])
-
+    beta = (inv(x.transpose().dot(x))).dot(x.transpose()).dot(y) #𝛽= (Xt X)-1 Xty
+    #dot multiplica matriz
+    #inv inverte a matriz
+    return beta, x.dot(beta) #𝑦̂ = X*𝛽
+    
 #Correlação tamanho casa e preço
-correlacaoTamanhoPreco = correlation(x[:,0], y)
+correlacaoTamanhoPreco = correlation(x[:,1], y)
 
 #Correlação número de quartos e preço
-correlacaoQuartosPreco = correlation(x[:,1], y)
+correlacaoQuartosPreco = correlation(x[:,2], y)
 
-#devem ser Correlacao TamXPreco: 0.85499, Correlacao nQuartoXTamanho 0.44226
-
-x = adicionarColuna(x, 0, 1)
-print(regresseao_multipla(x, y))
+#Calcula regressão múltipla e beta
+beta, regressao  = regresseao_multipla(x, y)
 
 #Plota gráfico 3d com coluna tamanho, preço e quartos.
 fig = plt.figure()
 ax = Axes3D(fig)
-ax.scatter(x[:,1], y, x[:,2])
-plt.plot(y, regresseao_multipla(x, y), '-')
+ax.scatter(x[:,1], x[:,2], y)
+plt.plot(x[:,1], x[:,2], regressao, '-')
 plt.title('Correlacao TamXPreco: {:.5f}, Correlacao nQuartoXTamanho {:.5f}'.format(correlacaoTamanhoPreco, correlacaoQuartosPreco))
 plt.show()
 
 
-#calcular regressão múltipla: LINEAR MULTIPLA ((Xtransp x X)-1) Xtransp x y
-#calcular y, 𝑦̂ = X*𝛽
+#Cria o array e calcula o preço da casa
+z = np.array([1, 1650, 3])
+resultado = z.dot(beta)
+print('Preço de uma casa com tamanho de 1650 e 3 quartos {:.5f}'.format(resultado))

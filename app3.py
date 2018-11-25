@@ -1,3 +1,4 @@
+#José Wollinger e Michel Tank
 import numpy as np
 import matplotlib.pyplot as plt
 import math 

@@ -1,3 +1,4 @@
+#José Wollinger e Michel Tank
 import numpy as np
 import matplotlib.pyplot as plt
 import math 
@@ -24,8 +25,8 @@ def b0(x , y):
     return np.mean(y) - b1(x,  y) * np.mean(x)
 
 def correlation(xList, yList):
-  meanX = calcMean(xList)
-  meanY = calcMean(yList)
+  meanX = np.mean(xList)
+  meanY = np.mean(yList)
   totalUpCalc = 0
   totalDownCalc1 = 0
   totalDownCalc2 = 0 
@@ -36,13 +37,6 @@ def correlation(xList, yList):
     totalDownCalc2 = totalDownCalc2 + ((yList[idx] - meanY) ** 2)
   
   return totalUpCalc / math.sqrt(totalDownCalc1 * totalDownCalc2)
-
-def calcMean(x):
-  mean = 0
-  for item in x:
-    mean = mean + item
-  mean = mean/len(x)
-  return mean
 
 def regression(x, y):
   regressao = []
@@ -66,7 +60,10 @@ plt.scatter(x3, y3)
 plt.plot(x3, regression(x3, y3), '-')
 plt.show()
 
+#3 - Qual dos datasets não é apropriado para regressão linear?
 
-
+# O segundo pois a natureza da relação entre os dados não é linear, 
+# para este caso uma regresão polinomial seria mais conveniente.
+# O terceiro dataset também não é apropriado pois os dados são muito dispersos.
 
 
